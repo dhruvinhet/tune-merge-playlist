@@ -30,42 +30,42 @@ const songs: Song[] = [
     id: 1,
     title: "Tum Hi Ho",
     artist: "Arijit Singh",
-    cover: "https://i.scdn.co/image/ab67616d0000b273c5416f6484e7ef0292a737e4",
+    cover: "https://c.saavncdn.com/992/Aashiqui-2-Hindi-2013-500x500.jpg",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Replace with actual song URL
   },
   {
     id: 2,
     title: "Kesariya",
-    artist: "Arijit Singh",
-    cover: "https://i.scdn.co/image/ab67616d0000b273c08202c50371e234d20caf62",
+    artist: "Arijit Singh, Pritam",
+    cover: "https://c.saavncdn.com/191/Kesariya-From-Brahmastra-Hindi-2022-20220717092820-500x500.jpg",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", // Replace with actual song URL
   },
   {
     id: 3,
     title: "Channa Mereya",
     artist: "Arijit Singh",
-    cover: "https://i.scdn.co/image/ab67616d0000b273e7a913a7c0e7d234f39fd251",
+    cover: "https://c.saavncdn.com/742/Ae-Dil-Hai-Mushkil-Hindi-2016-500x500.jpg",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", // Replace with actual song URL
   },
   {
     id: 4,
     title: "Raataan Lambiyan",
-    artist: "Jubin Nautiyal",
-    cover: "https://i.scdn.co/image/ab67616d0000b273c5e2f76bc112640fba1f8af9",
+    artist: "Jubin Nautiyal, Asees Kaur",
+    cover: "https://c.saavncdn.com/238/Shershaah-Original-Motion-Picture-Soundtrack--Hindi-2021-20210815181610-500x500.jpg",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", // Replace with actual song URL
   },
   {
     id: 5,
     title: "Pasoori",
     artist: "Ali Sethi, Shae Gill",
-    cover: "https://i.scdn.co/image/ab67616d0000b273a9544d42b7aa73a5c7bfa3f6",
+    cover: "https://c.saavncdn.com/663/Pasoori-Punjabi-2022-20220203181058-500x500.jpg",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", // Replace with actual song URL
   },
   {
     id: 6,
     title: "Kahani Suno",
     artist: "Kaifi Khalil",
-    cover: "https://i.scdn.co/image/ab67616d0000b273dbbf27f5a37d85186a88e20c",
+    cover: "https://c.saavncdn.com/977/Kahani-Suno-2-0-Hindi-2022-20221006155213-500x500.jpg",
     url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3", // Replace with actual song URL
   },
 ];
