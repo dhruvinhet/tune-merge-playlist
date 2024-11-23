@@ -12,9 +12,10 @@ interface SongCardProps {
   title: string;
   artist: string;
   cover: string;
+  onPlay: () => void;
 }
 
-export function SongCard({ title, artist, cover }: SongCardProps) {
+export function SongCard({ title, artist, cover, onPlay }: SongCardProps) {
   const { toast } = useToast();
 
   const addToPlaylist = (playlist: string) => {
@@ -35,6 +36,7 @@ export function SongCard({ title, artist, cover }: SongCardProps) {
         <Button
           size="icon"
           className="absolute bottom-2 right-2 h-10 w-10 rounded-full opacity-0 transition-opacity group-hover:opacity-100"
+          onClick={onPlay}
         >
           <Play className="h-5 w-5" />
         </Button>

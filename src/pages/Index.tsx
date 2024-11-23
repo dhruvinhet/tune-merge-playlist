@@ -1,43 +1,72 @@
 import { Sidebar } from "@/components/Sidebar";
 import { Player } from "@/components/Player";
 import { SongCard } from "@/components/SongCard";
+import { create } from "zustand";
 
-const songs = [
+interface Song {
+  id: number;
+  title: string;
+  artist: string;
+  cover: string;
+  url: string;
+}
+
+interface PlayerStore {
+  currentSong: Song | null;
+  isPlaying: boolean;
+  setCurrentSong: (song: Song) => void;
+  togglePlayPause: () => void;
+}
+
+export const usePlayerStore = create<PlayerStore>((set) => ({
+  currentSong: null,
+  isPlaying: false,
+  setCurrentSong: (song) => set({ currentSong: song, isPlaying: true }),
+  togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
+}));
+
+const songs: Song[] = [
   {
     id: 1,
-    title: "Bohemian Rhapsody",
-    artist: "Queen",
-    cover: "https://placehold.co/400",
+    title: "Tum Hi Ho",
+    artist: "Arijit Singh",
+    cover: "https://i.scdn.co/image/ab67616d0000b273c5416f6484e7ef0292a737e4",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3", // Replace with actual song URL
   },
   {
     id: 2,
-    title: "Stairway to Heaven",
-    artist: "Led Zeppelin",
-    cover: "https://placehold.co/400",
+    title: "Kesariya",
+    artist: "Arijit Singh",
+    cover: "https://i.scdn.co/image/ab67616d0000b273c08202c50371e234d20caf62",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3", // Replace with actual song URL
   },
   {
     id: 3,
-    title: "Hotel California",
-    artist: "Eagles",
-    cover: "https://placehold.co/400",
+    title: "Channa Mereya",
+    artist: "Arijit Singh",
+    cover: "https://i.scdn.co/image/ab67616d0000b273e7a913a7c0e7d234f39fd251",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3", // Replace with actual song URL
   },
   {
     id: 4,
-    title: "Sweet Child O' Mine",
-    artist: "Guns N' Roses",
-    cover: "https://placehold.co/400",
+    title: "Raataan Lambiyan",
+    artist: "Jubin Nautiyal",
+    cover: "https://i.scdn.co/image/ab67616d0000b273c5e2f76bc112640fba1f8af9",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3", // Replace with actual song URL
   },
   {
     id: 5,
-    title: "Smells Like Teen Spirit",
-    artist: "Nirvana",
-    cover: "https://placehold.co/400",
+    title: "Pasoori",
+    artist: "Ali Sethi, Shae Gill",
+    cover: "https://i.scdn.co/image/ab67616d0000b273a9544d42b7aa73a5c7bfa3f6",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-5.mp3", // Replace with actual song URL
   },
   {
     id: 6,
-    title: "Nothing Else Matters",
-    artist: "Metallica",
-    cover: "https://placehold.co/400",
+    title: "Kahani Suno",
+    artist: "Kaifi Khalil",
+    cover: "https://i.scdn.co/image/ab67616d0000b273dbbf27f5a37d85186a88e20c",
+    url: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3", // Replace with actual song URL
   },
 ];
 
@@ -54,6 +83,7 @@ const Index = () => {
               title={song.title}
               artist={song.artist}
               cover={song.cover}
+              onPlay={() => usePlayerStore.getState().setCurrentSong(song)}
             />
           ))}
         </div>
