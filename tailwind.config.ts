@@ -19,6 +19,12 @@ export default {
     },
     extend: {
       colors: {
+        spotify: {
+          green: "#1DB954",
+          dark: "#121212",
+          light: "#282828",
+          text: "#B3B3B3",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
