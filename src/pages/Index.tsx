@@ -78,7 +78,6 @@ const Index = () => {
   const { toast } = useToast();
   const [localSongs, setLocalSongs] = useState<Song[]>([]);
 
-  // Load local songs from localStorage on component mount
   useEffect(() => {
     const savedSongs = localStorage.getItem('localSongs');
     if (savedSongs) {
@@ -97,7 +96,6 @@ const Index = () => {
         url: URL.createObjectURL(file),
       };
 
-      // Add new song to localSongs and save to localStorage
       const updatedSongs = [...localSongs, localSong];
       setLocalSongs(updatedSongs);
       localStorage.setItem('localSongs', JSON.stringify(updatedSongs));
@@ -108,6 +106,22 @@ const Index = () => {
         description: `Now playing: ${localSong.title}`,
       });
     }
+  };
+
+  const handleDeleteSong = (songId: number) => {
+    const updatedSongs = localSongs.filter(song => song.id !== songId);
+    setLocalSongs(updatedSongs);
+    localStorage.setItem('localSongs', JSON.stringify(updatedSongs));
+    
+    const currentSong = usePlayerStore.getState().currentSong;
+    if (currentSong?.id === songId) {
+      usePlayerStore.getState().setCurrentSong(null);
+    }
+
+    toast({
+      title: "Song deleted",
+      description: "The song has been removed from your library",
+    });
   };
 
   return (
@@ -141,6 +155,8 @@ const Index = () => {
                   artist={song.artist}
                   cover={song.cover}
                   onPlay={() => usePlayerStore.getState().setCurrentSong(song)}
+                  onDelete={() => handleDeleteSong(song.id)}
+                  isLocal={true}
                 />
               ))}
             </div>
@@ -156,6 +172,7 @@ const Index = () => {
               artist={song.artist}
               cover={song.cover}
               onPlay={() => usePlayerStore.getState().setCurrentSong(song)}
+              isLocal={false}
             />
           ))}
         </div>

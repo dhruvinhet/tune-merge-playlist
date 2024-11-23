@@ -1,4 +1,4 @@
-import { Plus, Play } from "lucide-react";
+import { Plus, Play, Trash2 } from "lucide-react";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -13,9 +13,11 @@ interface SongCardProps {
   artist: string;
   cover: string;
   onPlay: () => void;
+  onDelete?: () => void;
+  isLocal?: boolean;
 }
 
-export function SongCard({ title, artist, cover, onPlay }: SongCardProps) {
+export function SongCard({ title, artist, cover, onPlay, onDelete, isLocal }: SongCardProps) {
   const { toast } = useToast();
 
   const addToPlaylist = (playlist: string) => {
@@ -45,28 +47,39 @@ export function SongCard({ title, artist, cover, onPlay }: SongCardProps) {
         <h3 className="font-semibold">{title}</h3>
         <p className="text-sm text-spotify-text">{artist}</p>
       </div>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-4 top-4 opacity-0 transition-opacity group-hover:opacity-100"
-          >
-            <Plus className="h-4 w-4" />
-          </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuItem onClick={() => addToPlaylist("My Playlist #1")}>
-            Add to My Playlist #1
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => addToPlaylist("Favorites")}>
-            Add to Favorites
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => addToPlaylist("Rock Classics")}>
-            Add to Rock Classics
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+      {isLocal ? (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-4 top-4 opacity-0 transition-opacity group-hover:opacity-100 hover:text-red-500"
+          onClick={onDelete}
+        >
+          <Trash2 className="h-4 w-4" />
+        </Button>
+      ) : (
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-4 top-4 opacity-0 transition-opacity group-hover:opacity-100"
+            >
+              <Plus className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuItem onClick={() => addToPlaylist("My Playlist #1")}>
+              Add to My Playlist #1
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => addToPlaylist("Favorites")}>
+              Add to Favorites
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => addToPlaylist("Rock Classics")}>
+              Add to Rock Classics
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      )}
     </div>
   );
 }
