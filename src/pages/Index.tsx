@@ -5,6 +5,7 @@ import { create } from "zustand";
 import { Button } from "@/components/ui/button";
 import { Upload } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
+import { useEffect, useState } from "react";
 
 interface Song {
   id: number;
@@ -28,7 +29,7 @@ export const usePlayerStore = create<PlayerStore>((set) => ({
   togglePlayPause: () => set((state) => ({ isPlaying: !state.isPlaying })),
 }));
 
-const songs: Song[] = [
+const defaultSongs: Song[] = [
   {
     id: 1,
     title: "Tum Hi Ho",
@@ -75,6 +76,15 @@ const songs: Song[] = [
 
 const Index = () => {
   const { toast } = useToast();
+  const [localSongs, setLocalSongs] = useState<Song[]>([]);
+
+  // Load local songs from localStorage on component mount
+  useEffect(() => {
+    const savedSongs = localStorage.getItem('localSongs');
+    if (savedSongs) {
+      setLocalSongs(JSON.parse(savedSongs));
+    }
+  }, []);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -86,6 +96,12 @@ const Index = () => {
         cover: "/placeholder.svg",
         url: URL.createObjectURL(file),
       };
+
+      // Add new song to localSongs and save to localStorage
+      const updatedSongs = [...localSongs, localSong];
+      setLocalSongs(updatedSongs);
+      localStorage.setItem('localSongs', JSON.stringify(updatedSongs));
+
       usePlayerStore.getState().setCurrentSong(localSong);
       toast({
         title: "File loaded",
@@ -113,8 +129,27 @@ const Index = () => {
             </Button>
           </div>
         </div>
+
+        {localSongs.length > 0 && (
+          <>
+            <h2 className="text-xl font-semibold mb-4">Your Uploaded Songs</h2>
+            <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 mb-8">
+              {localSongs.map((song) => (
+                <SongCard
+                  key={song.id}
+                  title={song.title}
+                  artist={song.artist}
+                  cover={song.cover}
+                  onPlay={() => usePlayerStore.getState().setCurrentSong(song)}
+                />
+              ))}
+            </div>
+          </>
+        )}
+
+        <h2 className="text-xl font-semibold mb-4">Featured Songs</h2>
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6">
-          {songs.map((song) => (
+          {defaultSongs.map((song) => (
             <SongCard
               key={song.id}
               title={song.title}
